@@ -39,10 +39,10 @@ vector1 <- c(1,2,5.3,6,-2,4) # Vector type: Numeric
 vector1
 class(vector1)
 
-vector2 <- c("one","two","three") # Vector type: 
+vector2 <- c("one","two","three") # Vector type: Character
 vector2
 
-vector3 <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) # Vector type:
+vector3 <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) # Vector type: Logic
 vector3
 ```
 
@@ -53,25 +53,25 @@ Add comments below to indicate what each operation does.(First answer is provide
 # Returns the 3rd item in the vector
 vector1[3]
 
-#
+# Return the highest value available on the vector 
 max(vector1)
 
 #Create another vector of the values 10 thru 15
 vector4 <- c(10:15)
 
-#
+# This shows both vectors 1 and 4
 c(vector1, vector4)
 
-#
+# Multiply and match the corresponding data on each of the vector lines 1 and 4
 vector1 * vector4
 
-#
+#Multiply by 10 all data in vector 1.
 vector1 * 10
 
-#
+#Separate each of the data in different Values 
 toupper(vector2) 
 
-#
+#This shifts the value in the vector for the oposite value for example if it is "true change it to "false"
 !vector3
 
 ```
@@ -83,10 +83,11 @@ Find a 5-day forecast of temperatures (Fahrenheit) for Durham, North Carolina. C
 ```{r Vector Exercise}
 
 #Assign to the variable 'temps_F' a vector of high temperatures in F
-
+vector5 <- c(38,44,47,54,54)# Vector type: Numeric
 
 #What is the average of these temperatures 
-
+ mean(vector5)
+47.4
 
 #Compute the difference between each temperature and the average calculated above
 
