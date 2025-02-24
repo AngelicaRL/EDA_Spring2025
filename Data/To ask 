@@ -1,0 +1,32 @@
+# Convert month to a factor to ensure correct ordering in the x-axis
+LTER_PeterPaul_Processed$month <- factor(LTER_PeterPaul_Processed$month, levels = unique(LTER_PeterPaul_Processed$month))
+
+#Temperature Boxplot
+temp_plot <- ggplot(LTER_PeterPaul_Processed, aes(x = month, y = temperature_C, fill = lakename)) +
+  geom_boxplot() +
+  labs(y = "Temperature (°C)", x = "Month") +
+  theme_bw() +
+  theme(legend.position = "none")  
+print(temp_plot)
+
+#Total Phosphorus (TP) Boxplot
+TP_plot <- ggplot(LTER_PeterPaul_Processed, aes(x = month, y = tp_ug, fill = lakename)) +
+  geom_boxplot() +
+  labs(y = "Total Phosphorus (µg/L)", x = "Month") +
+  theme_bw() +
+  theme(legend.position = "none", axis.title.x = element_blank())  
+
+#Total Nitrogen (TN) Boxplot
+TN_plot <- ggplot(LTER_PeterPaul_Processed, aes(x = month, y = tn_ug, fill = lakename)) +
+  geom_boxplot() +
+  labs(y = "Total Nitrogen (µg/L)", x = "Month") +
+  theme_bw()
+
+#Combine Plots Using `cowplot`
+combined_plot <- plot_grid(temp_plot, TP_plot, TN_plot, 
+                           ncol = 1, align = "v", labels = c("A", "B", "C"), 
+                           label_size = 14, 
+                           rel_heights = c(1, 1, 1))  # Adjust relative sizes
+
+#Display Final Combined Plot
+print(combined_plot)
