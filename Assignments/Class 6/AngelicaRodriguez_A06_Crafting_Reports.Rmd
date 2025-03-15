@@ -156,3 +156,7 @@ ggplot(ozone_2019, aes(x = factor(month(Date)), y = Ozone)) +
 Add a table of contents and list of figures to your document and knit to a PDF. Submit your PDF to Sakai, but also be sure to commit and push your Rmd file used to create this knit document to GitHub. In the section below, add a link to your GitHub repository.
 
 ## Git Repository
+
+https://github.com/AngelicaRL/EDA_Spring2025/blob/main/Assignments/Class%206/AngelicaRodriguez_A06_Crafting_Reports.Rmd 
+
+Assignments/Class 6/AngelicaRodriguez_A06_Crafting_Reports.Rmd
