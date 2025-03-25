@@ -21,13 +21,13 @@ Today we will work with two datasets. The USGS dataset on discharge at the Eno R
 
 library(tidyverse)
 library(lubridate)
-#install.packages("trend")
+install.packages("trend")
 library(trend)
-#install.packages("zoo")
+install.packages("zoo")
 library(zoo)
-#install.packages("Kendall")
+install.packages("Kendall")
 library(Kendall)
-#install.packages("tseries")
+install.packages("tseries")
 library(tseries)
 
 # Set theme
@@ -37,7 +37,7 @@ mytheme <- theme_classic(base_size = 14) +
 theme_set(mytheme)
 
 #Read Eno river data
-EnoDischarge <- read.csv("./Data/Processed_KEY/USGS_Site02085000_Flow_Processed.csv",
+EnoDischarge <- read.csv("/data/Processed_KEY/USGS_Site02085000_Flow_Processed.csv",
                          stringsAsFactors = TRUE)
 EnoDischarge$datetime <- as.Date(EnoDischarge$datetime, format = "%Y-%m-%d")
 

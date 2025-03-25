@@ -1,6 +1,6 @@
 ---
 title: "Assignment 8: Time Series Analysis"
-author: "Student Name"
+author: "Angelica Rodriguez"
 date: "Spring 2025"
 output: pdf_document
 geometry: margin=2.54cm
@@ -27,6 +27,23 @@ This exercise accompanies the lessons in Environmental Data Analytics on general
 * Set your ggplot theme
 
 ```{r}
+#setting the directory 
+
+setwd('/home/guest/EDA_Spring2025/Data/Raw')
+
+#Intalling packages and calling libraries 
+
+library(tidyverse)
+library(lubridate)
+library(zoo)
+library(Kendall)
+library(tseries)
+#install.packages("trend")
+library(stats)
+library(trend)
+
+#Setting the ggplot theme
+theme_set(theme_bw())
 
 ```
 
@@ -34,7 +51,31 @@ This exercise accompanies the lessons in Environmental Data Analytics on general
 2. Import the ten datasets from the Ozone_TimeSeries folder in the Raw data folder. These contain ozone concentrations at Garinger High School in North Carolina from 2010-2019 (the EPA air database only allows downloads for one year at a time). Import these either individually or in bulk and then combine them into a single dataframe named `GaringerOzone` of 3589 observation and 20 variables. 
 
 ```{r, message = FALSE}
-#1
+#2
+setwd('/home/guest/EDA_Spring2025/Data/Raw/Ozone_TimeSeries')
+
+#Calling file names to import 
+
+file_names <- c(
+"EPAair_O3_GaringerNC2010_raw.csv",
+"EPAair_O3_GaringerNC2011_raw.csv",
+"EPAair_O3_GaringerNC2012_raw.csv",
+"EPAair_O3_GaringerNC2013_raw.csv",
+"EPAair_O3_GaringerNC2014_raw.csv",
+"EPAair_O3_GaringerNC2015_raw.csv",
+"EPAair_O3_GaringerNC2016_raw.csv",
+"EPAair_O3_GaringerNC2017_raw.csv",
+"EPAair_O3_GaringerNC2018_raw.csv",
+"EPAair_O3_GaringerNC2019_raw.csv"
+)
+
+# Importing and combining the datasets
+GaringerOzone <- bind_rows(
+lapply(file_names, function(file) read.csv(file, header = TRUE)))
+
+# Here I check the dimensions of the combined dataframe
+dim(GaringerOzone)
+
 
 ```
 
@@ -50,10 +91,36 @@ This exercise accompanies the lessons in Environmental Data Analytics on general
 
 ```{r}
 # 3
+GaringerOzone$Date <- as.Date(GaringerOzone$Date, format = "%m/%d/%Y")
+class(GaringerOzone$Date)
 
 # 4
+GaringerOzone <- GaringerOzone %>%
+select(Date, Daily.Max.8.hour.Ozone.Concentration, DAILY_AQI_VALUE)
+
+str(GaringerOzone)
 
 # 5
+
+#To find NA values
+is.na(GaringerOzone$Daily.Max.8.hour.Ozone.Concentration)
+
+# To create a sequence of dates from 2010-01-01 to 2019-12-31
+
+start_date <- as.Date("2010-01-01")
+end_date <- as.Date("2019-12-31")
+Days <- as.data.frame(seq(from = start_date, to = end_date, by = "day"))
+
+# Here I create a "Days" dataframe with a complete sequence of dates
+start_date <- as.Date("2010-01-01")
+end_date <- as.Date("2019-12-31")
+Days <- as.data.frame(seq(from = start_date, to = end_date, by = "day"))
+colnames(Days) <- "Date"
+# Fill in missing days
+GaringerOzone <- Days %>%
+left_join(GaringerOzone, by = "Date")
+# Rename the column to "Date"
+colnames(Days) <- "Date"
 
 # 6
 
